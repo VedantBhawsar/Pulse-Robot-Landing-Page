@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,7 +41,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
         isScrolled 
-          ? "bg-white/80 backdrop-blur-md shadow-sm" 
+          ? "bg-background/80 backdrop-blur-md shadow-sm" 
           : "bg-transparent"
       )}
     >
@@ -77,9 +78,14 @@ const Navbar = () => {
           <a href="#details" className="nav-link">Contact</a>
         </nav>
 
+        {/* Desktop theme toggle */}
+        <div className="hidden md:flex items-center">
+          <ThemeToggle />
+        </div>
+
         {/* Mobile menu button - increased touch target */}
         <button 
-          className="md:hidden text-gray-700 p-3 focus:outline-none" 
+          className="md:hidden text-foreground p-3 focus:outline-none" 
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -89,13 +95,13 @@ const Navbar = () => {
 
       {/* Mobile Navigation - improved for better touch experience */}
       <div className={cn(
-        "fixed inset-0 z-40 bg-white flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
+        "fixed inset-0 z-40 bg-background flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
         isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
       )}>
         <nav className="flex flex-col space-y-8 items-center mt-8">
           <a 
             href="#" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-muted" 
             onClick={(e) => {
               e.preventDefault();
               scrollToTop();
@@ -107,7 +113,7 @@ const Navbar = () => {
           </a>
           <a 
             href="#features" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-muted" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
@@ -117,7 +123,7 @@ const Navbar = () => {
           </a>
           <a 
             href="#details" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-muted" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
@@ -125,6 +131,9 @@ const Navbar = () => {
           >
             Contact
           </a>
+          <div className="mt-6">
+            <ThemeToggle />
+          </div>
         </nav>
       </div>
     </header>
